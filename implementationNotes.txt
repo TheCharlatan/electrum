@@ -1,0 +1,26 @@
+In wizard:
+
+'Use a hardware device' -> choose_hardware_device
+
+self.plugins.get_hardware_support
+
+In plugin.py the follwing call initializes the plugin and gets some information:
+
+self.load_plugins()
+
+    Load plugin does some system import checks, then runs
+
+    register_wallet_type() and register_keystore() for each found plugin
+
+    def register_wallet_type(self, name, gui_good, wallet_type)
+        plugin = self.get_plugin(name)
+        register_constructor(wallet_type, plugin.wallet_class)
+        register_wallet_type(wallet_type)
+
+    def register_keystore(self, name, gui_good, details)
+    calls in turn:
+    def register_keystore(hw_type, constructor):
+        hw_keystores[hw_type] = constructor
+
+Investigate the device manager structure
+
